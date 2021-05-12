@@ -1,5 +1,7 @@
 module Grid where
 
+
+
 {-- Evolves the input grid to the next time step using the game rules of game
   of life --}
 updateGrid :: [(Int,Int)] -> [(Int,Int)]
@@ -20,6 +22,7 @@ removeCellIfUnderOrOverpopulated cell new old =
   if ( neighbourCount <= 1 || neighbourCount > 3)
   then cell `removeFrom` new
   else new
+
 
 insertCellIfProperNeighbourhood :: (Int,Int) -> [(Int,Int)] -> [(Int,Int)] -> [(Int,Int)]
 insertCellIfProperNeighbourhood cell new old = 

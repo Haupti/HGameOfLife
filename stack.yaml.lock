@@ -39,6 +39,13 @@ packages:
       sha256: db9e7cef1195c13cc9ceede808a7be464fe0c38fcdfcbf5224bfa3fe6411a460
   original:
     hackage: call-stack-0.3.0
+- completed:
+    hackage: textPlot-1.0@sha256:adcb61573078b42034f2d191a26971a752ce82fe7f572943f6d26865fc374c78,650
+    pantry-tree:
+      size: 203
+      sha256: 55330c58a0e10a1855ea0ab9160c4f20326100159d88a58c8fb0b10ce3b26651
+  original:
+    hackage: textPlot-1.0
 snapshots:
 - completed:
     size: 567241

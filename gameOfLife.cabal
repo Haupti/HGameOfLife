@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 1ff6363b7b685abb955ff6774b48c216c0229d819f865083dd60232b01902cb1
+-- hash: 2cd2e6afe4bb4e04e8862bb5f92a60b2b7bc64ce9adc7367f421b29aab9dcafd
 
 name:           gameOfLife
 version:        0.1.0.0
@@ -36,6 +36,7 @@ library
       src
   build-depends:
       base >=4.7 && <5
+    , textPlot
   default-language: Haskell2010
 
 executable gameOfLife-exe

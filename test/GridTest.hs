@@ -14,10 +14,7 @@ testCases =
    ++ findNeighboursTestCases
    ++ removeFromTestCases
    ++ createCellTestCases
-<<<<<<< HEAD
    ++ createSurroundingTestCases
-=======
->>>>>>> 0dfc7a8153c2c90dc473a25d24d4ab6a5bf6e764
 
 {-- Tests if cells are neighbours --}
 cellNeighbourTestCases = [
@@ -68,16 +65,10 @@ createCellTestCases = [
    ]
 
 {-- Create surrounding of a cell --}
-<<<<<<< HEAD
 createSurroundingTestCases = [
    TestLabel "Tests the creation of the surrounding of a cell" $ TestCase $
       (createSurrounding (3,3)) @?= [(2,2),(2,3),(2,4),(4,2),(4,3),(4,4),(3,2),(3,4)]
   ]
-=======
-createSurrounding :: (Int,Int) -> [(Int,Int)]
-createSurrounding (x,y) = (x+1,y-1):(x+1,y):(x+1,y+1):(x-1,y-1):(x-1,y):(x-1,y+1):(x,y+1):(x,y-1):[] 
-
->>>>>>> 0dfc7a8153c2c90dc473a25d24d4ab6a5bf6e764
 
 {-- Tests if the grid updates correctly --} 
 gridUpdateTestCases = [
@@ -85,7 +76,6 @@ gridUpdateTestCases = [
        (TestCase $ (updateGrid singleCell) @?= [])
    ,TestLabel "Empty grid stays empty" $ 
        (TestCase $ (updateGrid []) @?= [])
-<<<<<<< HEAD
    ,TestLabel "Block stays block" $ 
        (TestCase $ (updateGrid [(1,1),(1,2),(2,2),(2,1)]) @?= [(1,1),(1,2),(2,2),(2,1)])
    ,TestLabel "Blinker blinks" $ 
@@ -96,8 +86,4 @@ gridUpdateTestCases = [
           &&(2,2) `elem` updatedGrid
        ) @?= True)
 
-
-
-=======
->>>>>>> 0dfc7a8153c2c90dc473a25d24d4ab6a5bf6e764
    ]

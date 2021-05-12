@@ -10,7 +10,7 @@
 #
 # resolver: lts-3.5
 # resolver: nightly-2015-09-21
-resolver: ghc-8.10
+resolver: ghc-8.10.4
 #
 # The location of a snapshot can be provided as a file or url. Stack assumes
 # a snapshot provided as a file might change, whereas a url resource does not.
@@ -46,6 +46,7 @@ extra-deps:
   - hlint-3.2.7
   - random-1.2.0
   - call-stack-0.3.0
+  - textPlot-1.0
 
 # Override default flag values for local packages and extra-deps
 # flags: {}

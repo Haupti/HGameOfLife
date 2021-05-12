@@ -1,11 +1,10 @@
 module Lib where
 
 import Grid
+import View
 import Control.Concurrent
 
-someFunc :: IO ()
-someFunc = putStrLn "sasdfad"
-
+someFunc = putStrLn "not implemented"
 
 waitSecs :: Int -> IO ()
 waitSecs n = threadDelay (n * 1000000)
