@@ -6,6 +6,44 @@ import Control.Concurrent
 sampleGrid :: [(Int,Int)]
 sampleGrid = [(2,2),(3,2),(4,2),(2,4),(3,4),(4,4),(4,3),(5,3)]
 
+
+{-- genrates a grid with given with and height filed with ' ' chars --}
+generateGrid :: Int -> Int -> [[Char]] 
+generateGrid w h = [[' ' | _ <- [1..w]] | _ <- [1..h]]
+
+
+{-- draws a point in a grid. Does not draw point if outside grid --}
+drawPoint :: (Int,Int) -> [[Char]] -> [[Char]]
+drawPoint (x,y) grd | y >= length grd || y < 0 = grd
+                    | otherwise = let (left,right) = splitAt (y+1) grd
+                                  in
+                                  (init left)++[dotRow x $ last left]++right
+
+{-- draws a 'o' at the given pos in the row. 
+    Rows are treated as starting at 0 and only positive integers are allowed.
+        --}
+dotRow :: Int -> [Char] -> [Char]
+dotRow x row | x >= length row || x < 0 = row
+             | otherwise = let (left,right) = splitAt (x+1) row
+                            in
+                            (init left)++['o']++right
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{-- old --}
+
 grid :: Int -> Int -> [[Char]]
 grid x y = let row = ['_' | _<-[0..x]] 
            in [row | _<-[0..y]]

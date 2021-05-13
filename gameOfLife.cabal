@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 2cd2e6afe4bb4e04e8862bb5f92a60b2b7bc64ce9adc7367f421b29aab9dcafd
+-- hash: f5f663c2cd89047a3626b07cc29459aff2ab2b748423245aa336f7337571a309
 
 name:           gameOfLife
 version:        0.1.0.0
@@ -56,6 +56,7 @@ test-suite gameOfLife-test
   main-is: Spec.hs
   other-modules:
       GridTest
+      ViewTest
       Paths_gameOfLife
   hs-source-dirs:
       test
