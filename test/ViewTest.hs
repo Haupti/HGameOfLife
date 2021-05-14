@@ -30,7 +30,19 @@ testMarkerInRow = [
 {-- create empty grid with given width and height --}
 testGenerateGrid = [
     TestLabel "Generating a grid w=0,h=0 is empty" $ TestCase $ (generateGrid 0 0) @?= []
+   ,TestLabel "Generating a grid w=0,h=1 is empty" $ TestCase $ (generateGrid 0 1) @?= []
+   ,TestLabel "Generating a grid w=1,h=0 is empty" $ TestCase $ (generateGrid 1 0) @?= []
    ,TestLabel "Generating a grid w=1,h=1 works"    $ TestCase $ (generateGrid 1 1) @?= [" "]
    ,TestLabel "Generating a grid w=5,h=2 works"    $ TestCase $ (generateGrid 5 2) @?= ["     ","     "]
    ,TestLabel "Generating a grid w=2,h=4 works"    $ TestCase $ (generateGrid 2 4) @?= ["  ","  ","  ","  "]
    ]
+
+testGenerateGridDims = 
+   [ TestLabel "Generating the dimensions of the grid from set of points" $ TestCase $ (generateDims [(1,2),(5,3)]) @?= (5,2)
+   ]
+
+testDrawPoints = [
+    TestLabel "Drawing a set of points without axis" $ TestCase $ "NA" @?= "NA"
+  ]
+
+
