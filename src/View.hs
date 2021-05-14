@@ -7,28 +7,10 @@ sampleGrid :: [(Int,Int)]
 sampleGrid = [(2,2),(3,2),(4,2),(2,4),(3,4),(4,4),(4,3),(5,3)]
 
 
-{-- genrates a grid with given with and height filed with ' ' chars --}
-generateGrid :: Int -> Int -> [[Char]] 
-generateGrid 0 _ = []
-generateGrid w h = [[' ' | _ <- [1..w]] | _ <- [1..h]]
-
-
 {-- draws a point in a grid. Does not draw point if outside grid --}
 drawPoint :: (Int,Int) -> [[Char]] -> [[Char]] 
 drawPoint (x,y) grd = replace y (replace x 'o' $ grd!!y) grd
 
-{-- draws a 'o' at the given pos in the row. 
-    Rows are treated as starting at 0 and only positive integers are allowed.
-        --}
-dotRow :: Int -> [Char] -> [Char]
-dotRow x row = replace x 'o' row
-
-{-- generatesDims generates dimensions of the minimum grid with the points from
-    a list --}
-generateDims :: [(Int,Int)] -> (Int,Int)
-generateDims points = let xs = map (\p -> fst p) points
-                          ys = map (\p -> snd p) points in
-                      ((maximum xs - minimum xs),(maximum ys - minimum ys))
 
 {-- replace position newElement list returns a list where element at given
     position is replaced with new element --}
