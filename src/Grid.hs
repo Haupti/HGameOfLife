@@ -1,6 +1,5 @@
 module Grid where
 
-
 {-- genrates a grid with given with and height filed with ' ' chars --}
 generateGrid :: Int -> Int -> [[Char]] 
 generateGrid 0 _ = []
