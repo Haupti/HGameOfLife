@@ -10,7 +10,7 @@ testCases :: [Test]
 testCases = 
    cellNeighbourTestCases 
    ++ gridUpdateTestCases 
-   ++ removeCellsTestCases 
+   ++ purgeCellsTest 
    ++ findNeighboursTestCases
    ++ createCellTestCases
    ++ createSurroundingTestCases
@@ -39,11 +39,11 @@ findNeighboursTestCases = [
       (TestCase $ ([(130,1),(3,4),(4,3),(5,2),(9,10),(131,0)] `findNeighboursOf` (4,3)) @?= [(3,4),(5,2)])
   ]
 
-removeCellsTestCases = [
+purgeCellsTest = [
    TestLabel "cell does not get removed from new grid" 
-     (TestCase $ (removeCellIfUnderOrOverpopulated (2,2) [(1,1),(2,2),(9,8)] [(1,1),(2,2),(3,3),(9,8)]) @?= [(1,1),(2,2),(9,8)])
+     (TestCase $ (purge [(1,1),(2,2),(3,3),(9,8)]) @?= [(2,2)])
    ,TestLabel "cell does get removed from new grid" 
-     (TestCase $ (removeCellIfUnderOrOverpopulated (2,2) [(2,2),(9,8)] [(2,2),(8,19),(9,8)]) @?= [(9,8)])
+     (TestCase $ (purge [(8,8),(8,9),(9,8)]) @?= [(8,8),(8,9),(9,8)])
    ]
 
 {-- Create cell if coordinate has proper neighbourhood -}

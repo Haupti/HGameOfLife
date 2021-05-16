@@ -6,18 +6,13 @@ import Data.List
   of life --}
 updateGrid :: [(Int,Int)] -> [(Int,Int)]
 updateGrid grid = 
-  let deathApplied = filter (\cell -> length (grid `findNeighboursOf` cell) `elem` [2,3]) grid
-      neighbourhood = foldr (\cell acc -> (createSurrounding cell) ++ acc) [] grid
-  in
-  foldr (\neighbourhoodCell updatedGrid -> insertCellIfProperNeighbourhood neighbourhoodCell updatedGrid grid) deathApplied neighbourhood
+  foldr (\neighbourhoodCell updatedGrid -> insertCellIfProperNeighbourhood neighbourhoodCell updatedGrid grid) (purge grid) (neighbourhood grid)
 
+purge :: [(Int,Int)] -> [(Int,Int)]
+purge grid = filter (\cell -> length (grid `findNeighboursOf` cell) `elem` [2,3]) grid
 
-{-- removes cell from new grid if underpopulated in old grid
-  removeCellIfUnderOrOverpopulated cell newGrid oldGrid --}
-removeCellIfUnderOrOverpopulated :: (Int,Int) -> [(Int,Int)] -> [(Int,Int)] -> [(Int,Int)]
-removeCellIfUnderOrOverpopulated cell new old = if not (length (old `findNeighboursOf` cell) `elem` [2,3]) 
-                                                 then new \\ [cell] 
-                                                 else new
+neighbourhood :: [(Int,Int)] -> [(Int,Int)]
+neighbourhood = foldr (\cell acc -> (createSurrounding cell) ++ acc) [] 
 
 
 insertCellIfProperNeighbourhood :: (Int,Int) -> [(Int,Int)] -> [(Int,Int)] -> [(Int,Int)]
