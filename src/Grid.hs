@@ -1,5 +1,6 @@
 module Grid where
 
+import Data.List
 
 {-- Evolves the input grid to the next time step using the game rules of game
   of life --}
@@ -19,7 +20,7 @@ removeCellIfUnderOrOverpopulated cell new old =
   let neighbourCount = length (old `findNeighboursOf` cell) 
   in
   if ( neighbourCount <= 1 || neighbourCount > 3)
-  then cell `removeFrom` new
+  then new \\ [cell]
   else new
 
 
@@ -31,14 +32,9 @@ insertCellIfProperNeighbourhood cell new old =
   then cell:new
   else new
 
-removeFrom :: (Eq x, Eq y) => (x,y) -> [(x,y)] -> [(x,y)]
-removeFrom cell grid = foldr (\c acc -> if (c `tupleEqual` cell) then acc else (c:acc)) [] grid
 
 findNeighboursOf :: [(Int,Int)] -> (Int,Int) -> [(Int,Int)]
-findNeighboursOf grid p = 
-  foldr 
-  (\g acc -> if (p `isNeighbourOf` g) then g:acc else acc
-  ) [] grid
+findNeighboursOf grid p = filter (\gp -> gp `isNeighbourOf` p) grid
 
 tupleEqual :: (Eq a, Eq b) => (a,b) -> (a,b) -> Bool
 tupleEqual (xa,ya) (xb, yb) = (xa == xb) && (ya == yb)

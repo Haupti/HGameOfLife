@@ -12,7 +12,6 @@ testCases =
    ++ gridUpdateTestCases 
    ++ removeCellsTestCases 
    ++ findNeighboursTestCases
-   ++ removeFromTestCases
    ++ createCellTestCases
    ++ createSurroundingTestCases
 
@@ -40,13 +39,6 @@ findNeighboursTestCases = [
       (TestCase $ ([(130,1),(3,4),(4,3),(5,2),(9,10),(131,0)] `findNeighboursOf` (4,3)) @?= [(3,4),(5,2)])
   ]
 
-{-- removeFrom test --} 
-removeFromTestCases = [
-    TestCase $ ((9,9) `removeFrom` [(1,2),(3,4),(9,9),(8,9),(9,1)]) @?= [(1,2),(3,4),(8,9),(9,1)]
-   ,TestCase $ ((1,2) `removeFrom` [(3,4),(5,4)]) @?= [(3,4),(5,4)]
-   ]
-
-{-- Remove cell of grid if not enought neighbours in grid --}
 removeCellsTestCases = [
    TestLabel "cell does not get removed from new grid" 
      (TestCase $ (removeCellIfUnderOrOverpopulated (2,2) [(1,1),(2,2),(9,8)] [(1,1),(2,2),(3,3),(9,8)]) @?= [(1,1),(2,2),(9,8)])
