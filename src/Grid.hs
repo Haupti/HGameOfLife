@@ -36,8 +36,6 @@ insertCellIfProperNeighbourhood cell new old =
 findNeighboursOf :: [(Int,Int)] -> (Int,Int) -> [(Int,Int)]
 findNeighboursOf grid p = filter (\gp -> gp `isNeighbourOf` p) grid
 
-tupleEqual :: (Eq a, Eq b) => (a,b) -> (a,b) -> Bool
-tupleEqual (xa,ya) (xb, yb) = (xa == xb) && (ya == yb)
 
 isNeighbourOf :: (Int,Int) -> (Int,Int) -> Bool
 isNeighbourOf (xa,ya) (xb,yb)
