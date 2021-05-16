@@ -10,7 +10,34 @@ testCases = testMarkerInRow
             ++ testAutoDrawPoints
             ++ testGenerateGrid
             ++ testGenerateGridDims
+            ++ testShiftPoints
+            ++ testDrawWithLimits
 
+testShiftPoints =
+  [
+     TestLabel "Points are not shiften is shift is zero" $ TestCase $
+      (shiftPoints [(1,1)] 0 0) @?= [(1,1)]
+    ,TestLabel "Points are shiften up is + and down if - sign" $ TestList $
+      [
+         TestCase $ (shiftPoints [(1,1),(2,2),(3,1)] 1 0) @?= [(2,1),(3,2),(4,1)]
+        ,TestCase $ (shiftPoints [(1,1),(2,2),(3,1)] (-1) 0) @?= [(0,1),(1,2),(2,1)]
+        ,TestCase $ (shiftPoints [(1,1),(2,2),(3,1)] (-2) 0) @?= [(-1,1),(0,2),(1,1)]
+        ,TestCase $ (shiftPoints [(1,1),(2,2),(3,1)] 0 1) @?= [(1,2),(2,3),(3,2)]
+        ,TestCase $ (shiftPoints [(1,1),(2,2),(3,1)] 0 (-2)) @?= [(1,-1),(2,0),(3,-1)]
+        ,TestCase $ (shiftPoints [(1,1),(2,2),(3,1)] 3 (-2)) @?= [(4,-1),(5,0),(6,-1)]
+      ]
+  ]
+
+testDrawWithLimits =
+  [
+     TestLabel "draws empty grid if no points but size are given" $ TestCase $
+       drawPoints [] (0,3) (0,2) @?= ["    ","    ","    "]
+    ,TestLabel "draws grid of given size with points" $ TestList $ [
+       TestCase $ drawPoints [(1,1)] (0,1) (1,2) @?= [" o","  "]
+      ,TestCase $ drawPoints [(1,1),(3,2)] (1,3) (1,2) @?= ["o  ","  o"]
+      ,TestCase $ drawPoints [(2,1),(2,2),(10,100)] (0,3) (0,3) @?= ["    ","  o ","  o ","    "]
+      ]
+  ]
 {-- Test whether inserting marker in a grid uses the correct row --}
 testMarkerInRow = [
     TestLabel "Y uses row 0 in grid" $ TestCase $ (drawPoint (0,0) ["  ","  "]) @?= ["o ","  "]

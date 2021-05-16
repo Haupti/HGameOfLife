@@ -9,7 +9,7 @@ main = main' demo
 
 main' :: [(Int,Int)] -> IO ()
 main' grd = do
-  sequence $ (showGrid $ autoDrawPoints $ updateGrid grd)++[putStrLn "___________________________"]
+  sequence $ (showGrid $ drawPoints (updateGrid grd) (0,15) (0,15)) ++[putStrLn "___________________________"]
   waitSecs 1
   main' $ updateGrid grd
   return ()
