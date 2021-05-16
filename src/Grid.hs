@@ -6,32 +6,26 @@ import Data.List
   of life --}
 updateGrid :: [(Int,Int)] -> [(Int,Int)]
 updateGrid grid = 
-  let deathApplied = foldr (\cell newGrid -> 
-        removeCellIfUnderOrOverpopulated cell newGrid grid) grid grid
+  let deathApplied = filter (\cell -> length (grid `findNeighboursOf` cell) `elem` [2,3]) grid
       neighbourhood = foldr (\cell acc -> (createSurrounding cell) ++ acc) [] grid
   in
   foldr (\neighbourhoodCell updatedGrid -> insertCellIfProperNeighbourhood neighbourhoodCell updatedGrid grid) deathApplied neighbourhood
-  
+
+
 {-- removes cell from new grid if underpopulated in old grid
-  removeCellIfUnderOrOverpopulated cell newGrid oldGrid
-  --}
+  removeCellIfUnderOrOverpopulated cell newGrid oldGrid --}
 removeCellIfUnderOrOverpopulated :: (Int,Int) -> [(Int,Int)] -> [(Int,Int)] -> [(Int,Int)]
-removeCellIfUnderOrOverpopulated cell new old = 
-  let neighbourCount = length (old `findNeighboursOf` cell) 
-  in
-  if ( neighbourCount <= 1 || neighbourCount > 3)
-  then new \\ [cell]
-  else new
+removeCellIfUnderOrOverpopulated cell new old = if not (length (old `findNeighboursOf` cell) `elem` [2,3]) 
+                                                 then new \\ [cell] 
+                                                 else new
 
 
 insertCellIfProperNeighbourhood :: (Int,Int) -> [(Int,Int)] -> [(Int,Int)] -> [(Int,Int)]
-insertCellIfProperNeighbourhood cell new old = 
-  let neighbourCount = length (old `findNeighboursOf` cell)
-  in 
-  if neighbourCount == 3 && not (cell `elem` new)
-  then cell:new
-  else new
-
+insertCellIfProperNeighbourhood cll new old = if length (old `findNeighboursOf` cll) == 3 
+                                                 && (not $ cll `elem` new)
+                                               then cll:new
+                                               else new
+                                               
 
 findNeighboursOf :: [(Int,Int)] -> (Int,Int) -> [(Int,Int)]
 findNeighboursOf grid p = filter (\gp -> gp `isNeighbourOf` p) grid
@@ -39,7 +33,7 @@ findNeighboursOf grid p = filter (\gp -> gp `isNeighbourOf` p) grid
 
 isNeighbourOf :: (Int,Int) -> (Int,Int) -> Bool
 isNeighbourOf (xa,ya) (xb,yb)
-  | (xa == xb && ya == yb) = False
+  | (xa,ya) == (xb,yb) = False
   | otherwise = 
     if (xa <= xb+1 && xa >= xb-1)
     then if(ya <= yb + 1 && ya >= yb -1)
