@@ -6,7 +6,7 @@ import Data.List
   of life --}
 updateGrid :: [(Int,Int)] -> [(Int,Int)]
 updateGrid grid = 
-  foldr (\neighbourhoodCell updatedGrid -> insertCellIfProperNeighbourhood neighbourhoodCell updatedGrid grid) (purge grid) (neighbourhood grid)
+  foldr (\cll grd -> insertCellIfProperNeighbourhood cll grd grid) (purge grid) (neighbourhood grid)
 
 purge :: [(Int,Int)] -> [(Int,Int)]
 purge grid = filter (\cell -> length (grid `findNeighboursOf` cell) `elem` [2,3]) grid
@@ -29,12 +29,8 @@ findNeighboursOf grid p = filter (\gp -> gp `isNeighbourOf` p) grid
 isNeighbourOf :: (Int,Int) -> (Int,Int) -> Bool
 isNeighbourOf (xa,ya) (xb,yb)
   | (xa,ya) == (xb,yb) = False
-  | otherwise = 
-    if (xa <= xb+1 && xa >= xb-1)
-    then if(ya <= yb + 1 && ya >= yb -1)
-         then True
-         else False
-    else False
+  | otherwise = (xa <= xb+1 && xa >= xb-1) && (ya <= yb + 1 && ya >= yb -1)
+
 
 {-- Create surrounding of a cell --}
 createSurrounding :: (Int,Int) -> [(Int,Int)]
