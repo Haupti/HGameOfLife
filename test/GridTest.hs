@@ -10,9 +10,9 @@ testCases :: [Test]
 testCases = 
    cellNeighbourTestCases 
    ++ gridUpdateTestCases 
-   ++ purgeCellsTest 
+   ++ purgeCellsTestCases 
    ++ findNeighboursTestCases
-   ++ createCellTestCases
+   ++ findNewLivingCellsTestCases
    ++ createSurroundingTestCases
 
 {-- Tests if cells are neighbours --}
@@ -39,7 +39,7 @@ findNeighboursTestCases = [
       (TestCase $ ([(130,1),(3,4),(4,3),(5,2),(9,10),(131,0)] `findNeighboursOf` (4,3)) @?= [(3,4),(5,2)])
   ]
 
-purgeCellsTest = [
+purgeCellsTestCases = [
    TestLabel "cell does not get removed from new grid" 
      (TestCase $ (purge [(1,1),(2,2),(3,3),(9,8)]) @?= [(2,2)])
    ,TestLabel "cell does get removed from new grid" 
@@ -47,13 +47,9 @@ purgeCellsTest = [
    ]
 
 {-- Create cell if coordinate has proper neighbourhood -}
-createCellTestCases = [
-    TestLabel "No cell is created" $ TestCase $ (insertCellIfProperNeighbourhood (3,1) [] [(3,2)]) @?= []
-   ,TestLabel "No cell created because already in new" $ TestCase $ 
-      let gridAtFirstStep = [(3,6),(4,6),(2,5),(3,7)]  
-          actual = insertCellIfProperNeighbourhood (3,6) gridAtFirstStep gridAtFirstStep  
-      in 
-      actual @?= [(3,6),(4,6),(2,5),(3,7)]
+findNewLivingCellsTestCases = [
+      TestLabel "Finds cells in a neighbourhood of a grid that will be alive next evolution" $ TestCase $
+         (findNewLivingCells [(1,1),(1,2),(1,3)]) @?=[(0,2),(2,2)]
    ]
 
 {-- Create surrounding of a cell --}
@@ -69,7 +65,7 @@ gridUpdateTestCases = [
    ,TestLabel "Empty grid stays empty" $ 
        (TestCase $ (updateGrid []) @?= [])
    ,TestLabel "Block stays block" $ 
-       (TestCase $ (updateGrid [(1,1),(1,2),(2,2),(2,1)]) @?= [(1,1),(1,2),(2,2),(2,1)])
+       (TestCase $ (updateGrid [(1,1),(1,2),(2,2),(2,1)]) @?= [(2,1),(2,2),(1,1),(1,2)])
    ,TestLabel "Blinker blinks" $ 
        (TestCase $ (
           let updatedGrid = updateGrid [(1,1),(1,2),(1,3)] in

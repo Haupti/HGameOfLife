@@ -5,8 +5,10 @@ import Data.List
 {-- Evolves the input grid to the next time step using the game rules of game
   of life --}
 updateGrid :: [(Int,Int)] -> [(Int,Int)]
-updateGrid grid = 
-  foldr (\cll grd -> insertCellIfProperNeighbourhood cll grd grid) (purge grid) (neighbourhood grid)
+updateGrid grid = nub $ (findNewLivingCells grid) ++ (purge grid)
+
+findNewLivingCells :: [(Int,Int)] -> [(Int,Int)]
+findNewLivingCells grd = filter (\cell -> length (grd `findNeighboursOf` cell) == 3) (nub $ neighbourhood grd \\ grd)
 
 purge :: [(Int,Int)] -> [(Int,Int)]
 purge grid = filter (\cell -> length (grid `findNeighboursOf` cell) `elem` [2,3]) grid
@@ -14,13 +16,6 @@ purge grid = filter (\cell -> length (grid `findNeighboursOf` cell) `elem` [2,3]
 neighbourhood :: [(Int,Int)] -> [(Int,Int)]
 neighbourhood = foldr (\cell acc -> (createSurrounding cell) ++ acc) [] 
 
-
-insertCellIfProperNeighbourhood :: (Int,Int) -> [(Int,Int)] -> [(Int,Int)] -> [(Int,Int)]
-insertCellIfProperNeighbourhood cll new old = if length (old `findNeighboursOf` cll) == 3 
-                                                 && (not $ cll `elem` new)
-                                               then cll:new
-                                               else new
-                                               
 
 findNeighboursOf :: [(Int,Int)] -> (Int,Int) -> [(Int,Int)]
 findNeighboursOf grid p = filter (\gp -> gp `isNeighbourOf` p) grid
