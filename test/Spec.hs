@@ -1,12 +1,12 @@
 import Test.HUnit
 import GridTest
+import ViewTest
 
-gridUpdateTests :: Test
-gridUpdateTests = TestList $ GridTest.testCases
 
 main :: IO ()
 main = do
-  runTestTT gridUpdateTests
+  runTestTT $ TestList $ GridTest.testCases 
+  runTestTT $ TestList $ ViewTest.testCases 
   return ()
 
 
